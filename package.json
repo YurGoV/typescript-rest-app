@@ -2,7 +2,7 @@
   "name": "dashboard-api",
   "version": "1.0.0",
   "description": "API для учебного проекта 4-NodeJS",
-  "main": "index.js",
+  "main": "main.js",
   "type": "commonjs",
   "scripts": {
     "start": "node ./dist/main.js",
