@@ -1,30 +1,32 @@
-import { Container, ContainerModule, interfaces } from 'inversify'
-import { App } from './app'
-import { ILogger } from './logger/loggerInterface'
-import { IExeptionFilter } from './errors/exeptionFilterInterface'
-import { ExeptionFilter } from './errors/exeptionFilter'
-import { LoggerService } from './logger/loggerService'
-import { UserController } from './users/usersController'
-import { TYPES } from './types'
+import { Container, ContainerModule, interfaces } from 'inversify';
+import { App } from './app';
+import { ILogger } from './logger/loggerInterface';
+import { IExeptionFilter } from './errors/exeptionFilterInterface';
 
-export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
-    bind<ILogger>(TYPES.ILogger).to(LoggerService)
-    bind<IExeptionFilter>(TYPES.ExeptionFilter).to(ExeptionFilter)
-    bind<UserController>(TYPES.UserController).to(UserController)
-    bind<App>(TYPES.Application).to(App)
-})
+import { ExeptionFilter } from './errors/exeptionFilter';
+import { LoggerService } from './logger/loggerService';
+import { UserController } from './users/usersController';
+import { TYPES } from './types';
 
-function bootstrap() {
-    const appContainer = new Container()
-    appContainer.load(appBindings)
-    const app = appContainer.get<App>(TYPES.Application)
-    app.init()
-
-    return { appContainer, app }
+export interface IBootstrapReturn {
+  appContainer: Container;
+  app: App;
 }
 
+export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
+  bind<ILogger>(TYPES.ILogger).to(LoggerService);
+  bind<IExeptionFilter>(TYPES.ExeptionFilter).to(ExeptionFilter);
+  bind<UserController>(TYPES.UserController).to(UserController);
+  bind<App>(TYPES.Application).to(App);
+});
 
+function bootstrap(): IBootstrapReturn {
+  const appContainer = new Container();
+  appContainer.load(appBindings);
+  const app = appContainer.get<App>(TYPES.Application);
+  app.init();
 
+  return { appContainer, app };
+}
 
-
-export const { app, appContainer } = bootstrap()
+export const { app, appContainer } = bootstrap();

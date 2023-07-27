@@ -1,4 +1,4 @@
-import 'reflect-metadata'
+import 'reflect-metadata';
 
 // 1
 // function Test(target: Function){
@@ -53,5 +53,3 @@ import 'reflect-metadata'
 // export class D {
 //     constructor(@Inject('C') c: C) { }
 // }
-
-
