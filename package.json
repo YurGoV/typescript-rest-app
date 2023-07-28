@@ -6,6 +6,8 @@
   "type": "commonjs",
   "scripts": {
     "start": "node ./dist/main.js",
+    "dev": "nodemon",
+    "dev:inspect": "nodemon -e ts,json --exec node --inspect=localhost:9229 -r ts-node/register src/main.ts",
     "lint": "eslint ./src/**",
     "lint:fix": "eslint ./src/** --fix",
     "build": "tsc",
@@ -32,6 +34,7 @@
     "husky": "^4.3.8",
     "lint-staged": "^13.1.2",
     "nodemon": "^3.0.1",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "ts-node": "^10.9.1"
   }
 }
