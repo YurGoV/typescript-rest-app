@@ -26,8 +26,9 @@ export abstract class BaseController {
     return this.send<T>(res, 200, message);
   }
 
-  public created(res: Response): void {
-    res.sendStatus(201);
+  public created<T>(res: Response, message: T): ExpressReturnType {
+    return this.send<T>(res, 201, message);
+    // res.sendStatus(201);
   }
 
   protected bindRoutes(routes: IControllerRoute[]): void {
