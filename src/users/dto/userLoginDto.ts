@@ -1,5 +1,9 @@
-export class UserLoginDto {
-  email: string;
+import { IsEmail, IsString } from 'class-validator';
 
-  password: string;
+export class UserLoginDto {
+  @IsEmail({}, { message: 'wrong email' })
+    email: string;
+
+  @IsString()
+    password: string;
 }
