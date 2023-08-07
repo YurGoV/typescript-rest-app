@@ -12,6 +12,7 @@ import { ValidateMiddleware } from '../common/validateMiddleware';
 import { sign } from 'jsonwebtoken';
 import { IConfigService } from '../config/configServiceInterface';
 import { IUserService } from './usersServiceInterface';
+import { AuthGuard } from '../common/authGuard';
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -38,7 +39,7 @@ export class UserController extends BaseController implements IUserController {
         path: '/info',
         method: 'get',
         func: this.info,
-        middlewares: [],
+        middlewares: [new AuthGuard()],
       },
     ]);
   }
@@ -71,7 +72,8 @@ export class UserController extends BaseController implements IUserController {
 
   async info({ user }: Request, res: Response, next: NextFunction): Promise<void> {
     // console.log(body);
-    this.ok(res, { email: user });
+    const userInfo = await this.userService.getUserInfo(user);
+    this.ok(res, { email: userInfo?.email, id: userInfo?.id });
   }
 
   private signJwt(email: string, secret: string): Promise<string> {
